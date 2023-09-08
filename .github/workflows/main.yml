@@ -1,4 +1,10 @@
-on: [push]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'FlashPipe CLI command, e.g. update artifact, deploy, sync'
+        required: true
 
 jobs:
   hello_world_job:
@@ -9,11 +15,11 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Hello world action step
+      - name: FlashPipe action step
         uses: ./ # Uses an action in the root directory
-        id: hello
+        id: flashpipe
         with:
-          who-to-greet: '--help'
+          command: ${{ inputs.command }}
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
