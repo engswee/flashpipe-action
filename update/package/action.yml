@@ -1,0 +1,51 @@
+# action.yml - https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+name: 'FlashPipe Update Package'
+description: 'Update integration package from Git repository to tenant'
+author: 'engswee'
+branding:
+  icon: upload-cloud
+  color: blue
+inputs:
+  tmn-host:
+    description: 'Host for tenant management node of Cloud Integration'
+    required: true
+  tmn-userid:
+    description: 'User ID for Basic Auth'
+    required: false
+  tmn-password:
+    description: 'Password for Basic Auth'
+    required: false
+  oauth-host:
+    description: 'Host for OAuth token server'
+    required: false
+  oauth-clientid:
+    description: 'Client ID for using OAuth'
+    required: false
+  oauth-clientsecret:
+    description: 'Client Secret for using OAuth'
+    required: false
+  oauth-path:
+    description: 'Path for OAuth token server'
+    required: false
+  package-file-relative:
+    description: 'Path to location of package file - relative to root of Git repository'
+    required: true
+  debug:
+    description: 'Show debug logs'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: flashpipe update package
+      shell: bash
+      env:
+       FLASHPIPE_TMN_HOST: ${{ inputs.tmn-host }}
+       FLASHPIPE_TMN_USERID: ${{ inputs.tmn-userid }}
+       FLASHPIPE_TMN_PASSWORD: ${{ inputs.tmn-password }}
+       FLASHPIPE_OAUTH_HOST: ${{ inputs.oauth-host }}
+       FLASHPIPE_OAUTH_CLIENTID: ${{ inputs.oauth-clientid }}
+       FLASHPIPE_OAUTH_CLIENTSECRET: ${{ inputs.oauth-clientsecret }}
+       FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
+       FLASHPIPE_DEBUG: ${{ inputs.debug }}
+       FLASHPIPE_PACKAGE_FILE: ${{ github.workspace }}/${{ inputs.package-file-relative }}

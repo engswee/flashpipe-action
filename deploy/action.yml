@@ -1,0 +1,69 @@
+# action.yml - https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+name: 'FlashPipe Deploy'
+description: 'Deploys designtime artifacts to runtime'
+author: 'engswee'
+branding:
+  icon: play
+  color: blue
+inputs:
+  tmn-host:
+    description: 'Host for tenant management node of Cloud Integration'
+    required: true
+  tmn-userid:
+    description: 'User ID for Basic Auth'
+    required: false
+  tmn-password:
+    description: 'Password for Basic Auth'
+    required: false
+  oauth-host:
+    description: 'Host for OAuth token server'
+    required: false
+  oauth-clientid:
+    description: 'Client ID for using OAuth'
+    required: false
+  oauth-clientsecret:
+    description: 'Client Secret for using OAuth'
+    required: false
+  oauth-path:
+    description: 'Path for OAuth token server'
+    required: false
+  artifact-ids:
+    description: 'Comma separated list of artifact IDs'
+    required: true
+  artifact-type:
+    description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping (default "Integration")'
+    required: false
+  compare-versions:
+    description: 'Perform version comparison of design time against runtime before deployment (default true)'
+    required: false
+  delay-length:
+    description: 'Delay (in seconds) between each check of artifact deployment status (default 30)'
+    required: false
+  max-check-limit:
+    description: 'Max number of times to check for artifact deployment status (default 10)'
+    required: false
+  debug:
+    description: 'Show debug logs'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: flashpipe deploy
+      shell: bash
+      env:
+       FLASHPIPE_TMN_HOST: ${{ inputs.tmn-host }}
+       FLASHPIPE_TMN_USERID: ${{ inputs.tmn-userid }}
+       FLASHPIPE_TMN_PASSWORD: ${{ inputs.tmn-password }}
+       FLASHPIPE_OAUTH_HOST: ${{ inputs.oauth-host }}
+       FLASHPIPE_OAUTH_CLIENTID: ${{ inputs.oauth-clientid }}
+       FLASHPIPE_OAUTH_CLIENTSECRET: ${{ inputs.oauth-clientsecret }}
+       FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
+       FLASHPIPE_DEBUG: ${{ inputs.debug }}
+       FLASHPIPE_ARTIFACT_IDS: ${{ inputs.artifact-ids }}
+       FLASHPIPE_ARTIFACT_TYPE: ${{ inputs.artifact-type }}
+       FLASHPIPE_COMPARE_VERSIONS: ${{ inputs.compare-versions }}
+       FLASHPIPE_DELAY_LENGTH: ${{ inputs.delay-length }}
+       FLASHPIPE_MAX_CHECK_LIMIT: ${{ inputs.max-check-limit }}
+
+

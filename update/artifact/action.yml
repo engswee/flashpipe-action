@@ -1,0 +1,83 @@
+# action.yml - https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+name: 'FlashPipe Update Artifact'
+description: 'Update designtime artifact from Git repository to tenant'
+author: 'engswee'
+branding:
+  icon: upload-cloud
+  color: blue
+inputs:
+  tmn-host:
+    description: 'Host for tenant management node of Cloud Integration'
+    required: true
+  tmn-userid:
+    description: 'User ID for Basic Auth'
+    required: false
+  tmn-password:
+    description: 'Password for Basic Auth'
+    required: false
+  oauth-host:
+    description: 'Host for OAuth token server'
+    required: false
+  oauth-clientid:
+    description: 'Client ID for using OAuth'
+    required: false
+  oauth-clientsecret:
+    description: 'Client Secret for using OAuth'
+    required: false
+  oauth-path:
+    description: 'Path for OAuth token server'
+    required: false
+  artifact-id:
+    description: 'ID of artifact'
+    required: true
+  artifact-name:
+    description: 'Name of artifact'
+    required: true
+  package-id:
+    description: 'ID of Integration Package'
+    required: true
+  package-name:
+    description: 'Name of Integration Package'
+    required: true
+  dir-artifact-relative:
+    description: 'Directory containing contents of designtime artifact - relative to root of Git repository'
+    required: true
+  artifact-type:
+    description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping (default "Integration")'
+    required: false
+  file-manifest:
+    description: 'Use to a different MANIFEST.MF file instead of default META-INF/MANIFEST.MF'
+    required: false
+  file-param:
+    description: 'Use to a different parameters.prop file instead of default src/main/resources/parameters.prop'
+    required: false
+  script-collection-map:
+    description: 'Comma-separated source-target ID pairs for converting script collection references during create/update'
+    required: false
+  debug:
+    description: 'Show debug logs'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: flashpipe update artifact
+      shell: bash
+      env:
+       FLASHPIPE_TMN_HOST: ${{ inputs.tmn-host }}
+       FLASHPIPE_TMN_USERID: ${{ inputs.tmn-userid }}
+       FLASHPIPE_TMN_PASSWORD: ${{ inputs.tmn-password }}
+       FLASHPIPE_OAUTH_HOST: ${{ inputs.oauth-host }}
+       FLASHPIPE_OAUTH_CLIENTID: ${{ inputs.oauth-clientid }}
+       FLASHPIPE_OAUTH_CLIENTSECRET: ${{ inputs.oauth-clientsecret }}
+       FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
+       FLASHPIPE_DEBUG: ${{ inputs.debug }}
+       FLASHPIPE_ARTIFACT_ID: ${{ inputs.artifact-id }}
+       FLASHPIPE_ARTIFACT_NAME: ${{ inputs.artifact-name }}
+       FLASHPIPE_PACKAGE_ID: ${{ inputs.package-id }}
+       FLASHPIPE_PACKAGE_NAME: ${{ inputs.package-name }}
+       FLASHPIPE_DIR_ARTIFACT: ${{ github.workspace }}/${{ inputs.dir-artifact-relative }}
+       FLASHPIPE_ARTIFACT_TYPE: ${{ inputs.artifact-type }}
+       FLASHPIPE_FILE_PARAM: ${{ inputs.file-param }}
+       FLASHPIPE_FILE_MANIFEST: ${{ inputs.file-manifest }}
+       FLASHPIPE_SCRIPT_COLLECTION_MAP: ${{ inputs.script-collection-map }}
