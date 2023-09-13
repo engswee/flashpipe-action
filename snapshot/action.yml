@@ -27,9 +27,6 @@ inputs:
   oauth-path:
     description: 'Path for OAuth token server'
     required: false
-  package-id:
-    description: 'ID of Integration Package'
-    required: true
   dir-git-repo:
     description: 'Root directory of Git repository'
     required: false

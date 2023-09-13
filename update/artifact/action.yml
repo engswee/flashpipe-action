@@ -46,10 +46,10 @@ inputs:
     description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping (default "Integration")'
     required: false
   file-manifest:
-    description: 'Use to a different MANIFEST.MF file instead of default META-INF/MANIFEST.MF'
+    description: 'Use a different MANIFEST.MF file instead of default META-INF/MANIFEST.MF'
     required: false
   file-param:
-    description: 'Use to a different parameters.prop file instead of default src/main/resources/parameters.prop'
+    description: 'Use a different parameters.prop file instead of default src/main/resources/parameters.prop'
     required: false
   script-collection-map:
     description: 'Comma-separated source-target ID pairs for converting script collection references during create/update'
