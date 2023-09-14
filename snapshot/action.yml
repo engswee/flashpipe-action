@@ -35,7 +35,7 @@ inputs:
     description: 'Handling when artifact is in draft version. Allowed values: SKIP, ADD, ERROR (default "SKIP")'
     required: false
   git-commit-msg:
-    description: 'Message used in commit (default "Sync repo from tenant")'
+    description: 'Message used in commit (default "Tenant snapshot of <current_timestamp>")'
     required: false
   git-commit-user:
     description: 'User used in commit (default "github-actions[bot]")'

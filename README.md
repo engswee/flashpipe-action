@@ -351,7 +351,7 @@ This action includes an implicit `git push`, so the workflow does not require an
 
     # Message used in commit
     # Optional
-    # Default: Sync repo from tenant
+    # Default: Tenant snapshot of <current_timestamp>
     git-commit-msg:
 
     # User used in commit
