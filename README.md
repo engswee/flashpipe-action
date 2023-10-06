@@ -66,7 +66,8 @@ jobs:
     artifact-id: 
 
     # Name of artifact
-    # Required
+    # Optional
+    # Default: Uses value of artifact-id when not provided
     artifact-name: 
 
     # ID of Integration Package
@@ -74,7 +75,8 @@ jobs:
     package-id: 
 
     # Name of Integration Package
-    # Required
+    # Optional
+    # Default: Uses value of package-id when not provided
     package-name:
 
     # Directory containing contents of designtime artifact - relative to root of Git repository
@@ -211,7 +213,7 @@ jobs:
 ```
 
 ### sync
-This action includes an implicit `git push`, so the workflow does not require an additional push step.
+This action includes an implicit `git push` when syncing from remote (tenant) to local (Git), so the workflow does not require an additional push step.
 ```yaml
 - uses: engswee/flashpipe-action/sync@v1
   with:
@@ -256,6 +258,11 @@ This action includes an implicit `git push`, so the workflow does not require an
     # Directory containing contents of artifacts - relative to root directory of Git repository
     # Optional
     dir-artifacts-relative: 
+
+    # Target of sync. Allowed values: local, remote
+    # Optional
+    # Default: local
+    target:
 
     # Name artifact directory by ID or Name. Allowed values: ID, NAME
     # Optional

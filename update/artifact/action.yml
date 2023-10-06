@@ -32,13 +32,13 @@ inputs:
     required: true
   artifact-name:
     description: 'Name of artifact'
-    required: true
+    required: false
   package-id:
     description: 'ID of Integration Package'
     required: true
   package-name:
     description: 'Name of Integration Package'
-    required: true
+    required: false
   dir-artifact-relative:
     description: 'Directory containing contents of designtime artifact - relative to root of Git repository'
     required: true
