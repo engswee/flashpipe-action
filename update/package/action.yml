@@ -49,3 +49,4 @@ runs:
        FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
        FLASHPIPE_DEBUG: ${{ inputs.debug }}
        FLASHPIPE_PACKAGE_FILE: ${{ github.workspace }}/${{ inputs.package-file-relative }}
+       FLASHPIPE_ACTION: true

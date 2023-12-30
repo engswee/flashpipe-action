@@ -70,6 +70,7 @@ runs:
        FLASHPIPE_GIT_COMMIT_USER: ${{ inputs.git-commit-user }}
        FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
        FLASHPIPE_SYNC_PACKAGE_DETAILS: ${{ inputs.sync-package-details }}
+       FLASHPIPE_ACTION: true
     - run: git push
       shell: bash
       env:

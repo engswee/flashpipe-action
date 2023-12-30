@@ -98,6 +98,7 @@ runs:
        FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
        FLASHPIPE_SCRIPT_COLLECTION_MAP: ${{ inputs.script-collection-map }}
        FLASHPIPE_SYNC_PACKAGE_DETAILS: ${{ inputs.sync-package-details }}
+       FLASHPIPE_ACTION: true
     - run: git push
       if: ${{ inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant (remote) to Git (local)
       shell: bash

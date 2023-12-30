@@ -81,3 +81,4 @@ runs:
        FLASHPIPE_FILE_PARAM: ${{ inputs.file-param }}
        FLASHPIPE_FILE_MANIFEST: ${{ inputs.file-manifest }}
        FLASHPIPE_SCRIPT_COLLECTION_MAP: ${{ inputs.script-collection-map }}
+       FLASHPIPE_ACTION: true

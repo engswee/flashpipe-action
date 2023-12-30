@@ -65,5 +65,6 @@ runs:
        FLASHPIPE_COMPARE_VERSIONS: ${{ inputs.compare-versions }}
        FLASHPIPE_DELAY_LENGTH: ${{ inputs.delay-length }}
        FLASHPIPE_MAX_CHECK_LIMIT: ${{ inputs.max-check-limit }}
+       FLASHPIPE_ACTION: true
 
 
