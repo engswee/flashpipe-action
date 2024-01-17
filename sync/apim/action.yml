@@ -1,20 +1,14 @@
 # action.yml - https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
-name: 'FlashPipe Sync'
-description: 'Sync designtime artifacts between tenant and Git'
+name: 'FlashPipe Sync APIM'
+description: 'Sync API Management artifacts between tenant and Git'
 author: 'engswee'
 branding:
   icon: refresh-cw
   color: blue
 inputs:
   tmn-host:
-    description: 'Host for tenant management node of Cloud Integration'
+    description: 'Host for API Management tenant'
     required: true
-  tmn-userid:
-    description: 'User ID for Basic Auth'
-    required: false
-  tmn-password:
-    description: 'Password for Basic Auth'
-    required: false
   oauth-host:
     description: 'Host for OAuth token server'
     required: false
@@ -27,9 +21,6 @@ inputs:
   oauth-path:
     description: 'Path for OAuth token server'
     required: false
-  package-id:
-    description: 'ID of Integration Package'
-    required: true
   dir-git-repo:
     description: 'Root directory of Git repository'
     required: false
@@ -39,12 +30,6 @@ inputs:
     required: false
   target:
     description: 'Target of sync. Allowed values: local, remote (default "local")'
-    required: false
-  dir-naming-type:
-    description: 'Name artifact directory by ID or Name. Allowed values: ID, NAME (default "ID")'
-    required: false
-  draft-handling:
-    description: 'Handling when artifact is in draft version. Allowed values: SKIP, ADD, ERROR (default "SKIP")'
     required: false
   ids-include:
     description: 'List of included artifact IDs'
@@ -61,12 +46,6 @@ inputs:
   git-commit-email:
     description: 'Email used in commit (default "41898282+github-actions[bot]@users.noreply.github.com")'
     required: false
-  script-collection-map:
-    description: 'Comma-separated source-target ID pairs for converting script collection references during sync'
-    required: false
-  sync-package-details:
-    description: 'Sync details of Integration Package'
-    required: false
   debug:
     description: 'Show debug logs'
     required: false
@@ -74,30 +53,23 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: flashpipe sync
+    - run: flashpipe sync apim
       shell: bash
       env:
        FLASHPIPE_TMN_HOST: ${{ inputs.tmn-host }}
-       FLASHPIPE_TMN_USERID: ${{ inputs.tmn-userid }}
-       FLASHPIPE_TMN_PASSWORD: ${{ inputs.tmn-password }}
        FLASHPIPE_OAUTH_HOST: ${{ inputs.oauth-host }}
        FLASHPIPE_OAUTH_CLIENTID: ${{ inputs.oauth-clientid }}
        FLASHPIPE_OAUTH_CLIENTSECRET: ${{ inputs.oauth-clientsecret }}
        FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
        FLASHPIPE_DEBUG: ${{ inputs.debug }}
-       FLASHPIPE_PACKAGE_ID: ${{ inputs.package-id }}
        FLASHPIPE_DIR_GIT_REPO: ${{ inputs.dir-git-repo }}
        FLASHPIPE_DIR_ARTIFACTS: ${{ inputs.dir-git-repo }}/${{ inputs.dir-artifacts-relative }}
        FLASHPIPE_TARGET: ${{ inputs.target }}
-       FLASHPIPE_DIR_NAMING_TYPE: ${{ inputs.dir-naming-type }}
-       FLASHPIPE_DRAFT_HANDLING: ${{ inputs.draft-handling }}
        FLASHPIPE_IDS_INCLUDE: ${{ inputs.ids-include }}
        FLASHPIPE_IDS_EXCLUDE: ${{ inputs.ids-exclude }}
        FLASHPIPE_GIT_COMMIT_MSG: ${{ inputs.git-commit-msg }}
        FLASHPIPE_GIT_COMMIT_USER: ${{ inputs.git-commit-user }}
        FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
-       FLASHPIPE_SCRIPT_COLLECTION_MAP: ${{ inputs.script-collection-map }}
-       FLASHPIPE_SYNC_PACKAGE_DETAILS: ${{ inputs.sync-package-details }}
        FLASHPIPE_ACTION: true
     - run: git push
       if: ${{ inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant (remote) to Git (local)
