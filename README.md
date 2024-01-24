@@ -13,7 +13,7 @@ It provides the following actions which execute their corresponding FlashPipe CL
 |[update package](#update-package)|engswee/flashpipe-action/update/package@v1|
 |[deploy](#deploy)|engswee/flashpipe-action/deploy@v1|
 |[sync](#sync)|engswee/flashpipe-action/sync@v1|
-|[sync apim](#apim)|engswee/flashpipe-action/sync/apim@v1|
+|[sync apim](#sync-apim)|engswee/flashpipe-action/sync/apim@v1|
 |[snapshot](#snapshot)|engswee/flashpipe-action/snapshot@v1|
 
 
