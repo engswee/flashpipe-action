@@ -13,7 +13,7 @@ It provides the following actions which execute their corresponding FlashPipe CL
 |[update package](#update-package)|engswee/flashpipe-action/update/package@v1|
 |[deploy](#deploy)|engswee/flashpipe-action/deploy@v1|
 |[sync](#sync)|engswee/flashpipe-action/sync@v1|
-|[apim](#apim)|engswee/flashpipe-action/sync/apim@v1|
+|[sync apim](#apim)|engswee/flashpipe-action/sync/apim@v1|
 |[snapshot](#snapshot)|engswee/flashpipe-action/snapshot@v1|
 
 
@@ -313,7 +313,7 @@ This action includes an implicit `git push` when syncing from tenant to Git, so 
     debug:
 ```
 
-### apim
+### sync apim
 This action includes an implicit `git push` when syncing from tenant to Git, so the workflow does not require an additional push step.
 ```yaml
 - uses: engswee/flashpipe-action/sync/apim@v1
