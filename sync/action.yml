@@ -38,7 +38,7 @@ inputs:
     description: 'Directory containing contents of artifacts - relative to root directory of Git repository'
     required: false
   target:
-    description: 'Target of sync. Allowed values: local, remote (default "local")'
+    description: 'Target of sync. Allowed values: git, tenant (default "git")'
     required: false
   dir-naming-type:
     description: 'Name artifact directory by ID or Name. Allowed values: ID, NAME (default "ID")'
@@ -100,7 +100,7 @@ runs:
        FLASHPIPE_SYNC_PACKAGE_DETAILS: ${{ inputs.sync-package-details }}
        FLASHPIPE_ACTION: true
     - run: git push
-      if: ${{ inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant (remote) to Git (local)
+      if: ${{ inputs.target == 'git' || inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant to Git
       shell: bash
       env:
        HOME: /root

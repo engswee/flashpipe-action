@@ -29,7 +29,7 @@ inputs:
     description: 'Directory containing contents of artifacts - relative to root directory of Git repository'
     required: false
   target:
-    description: 'Target of sync. Allowed values: local, remote (default "local")'
+    description: 'Target of sync. Allowed values: git, tenant (default "git")'
     required: false
   ids-include:
     description: 'List of included artifact IDs'
@@ -72,7 +72,7 @@ runs:
        FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
        FLASHPIPE_ACTION: true
     - run: git push
-      if: ${{ inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant (remote) to Git (local)
+      if: ${{ inputs.target == 'git' || inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant to Git
       shell: bash
       env:
        HOME: /root

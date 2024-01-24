@@ -13,6 +13,7 @@ It provides the following actions which execute their corresponding FlashPipe CL
 |[update package](#update-package)|engswee/flashpipe-action/update/package@v1|
 |[deploy](#deploy)|engswee/flashpipe-action/deploy@v1|
 |[sync](#sync)|engswee/flashpipe-action/sync@v1|
+|[apim](#apim)|engswee/flashpipe-action/sync/apim@v1|
 |[snapshot](#snapshot)|engswee/flashpipe-action/snapshot@v1|
 
 
@@ -213,7 +214,7 @@ jobs:
 ```
 
 ### sync
-This action includes an implicit `git push` when syncing from remote (tenant) to local (Git), so the workflow does not require an additional push step.
+This action includes an implicit `git push` when syncing from tenant to Git, so the workflow does not require an additional push step.
 ```yaml
 - uses: engswee/flashpipe-action/sync@v1
   with:
@@ -259,9 +260,9 @@ This action includes an implicit `git push` when syncing from remote (tenant) to
     # Optional
     dir-artifacts-relative: 
 
-    # Target of sync. Allowed values: local, remote
+    # Target of sync. Allowed values: git, tenant
     # Optional
-    # Default: local
+    # Default: git
     target:
 
     # Name artifact directory by ID or Name. Allowed values: ID, NAME
@@ -305,6 +306,75 @@ This action includes an implicit `git push` when syncing from remote (tenant) to
     # Optional
     # Default: false
     sync-package-details:
+
+    # Show debug logs
+    # Optional
+    # Default: false
+    debug:
+```
+
+### apim
+This action includes an implicit `git push` when syncing from tenant to Git, so the workflow does not require an additional push step.
+```yaml
+- uses: engswee/flashpipe-action/sync/apim@v1
+  with:
+    # Host for Developer Portal for API Management
+    # Required
+    tmn-host:
+
+    # Host for OAuth token server
+    # Required (for OAuth)
+    oauth-host:
+
+    # Client ID for using OAuth
+    # Required (for OAuth)
+    oauth-clientid:
+
+    # Client Secret for using OAuth
+    # Required (for OAuth)
+    oauth-clientsecret:
+
+    # Path for OAuth token server
+    # Optional
+    # Default: /oauth/token
+    oauth-path:
+
+    # Root directory of Git repository
+    # Optional
+    # Default: ${{ github.workspace }}
+    dir-git-repo:
+
+    # Directory containing contents of artifacts - relative to root directory of Git repository
+    # Optional
+    dir-artifacts-relative: 
+
+    # Target of sync. Allowed values: git, tenant
+    # Optional
+    # Default: git
+    target:
+
+    # List of included artifact IDs
+    # Optional
+    ids-include:
+
+    # List of excluded artifact IDs
+    # Optional
+    ids-exclude:
+
+    # Message used in commit
+    # Optional
+    # Default: Sync repo from tenant
+    git-commit-msg:
+
+    # User used in commit
+    # Optional
+    # Default: github-actions[bot]
+    git-commit-user:
+
+    # Email used in commit
+    # Optional
+    # Default: 41898282+github-actions[bot]@users.noreply.github.com
+    git-commit-email:
 
     # Show debug logs
     # Optional
