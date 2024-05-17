@@ -31,6 +31,9 @@ inputs:
     description: 'Root directory of Git repository'
     required: false
     default: ${{ github.workspace }}
+  dir-artifacts-relative:
+    description: 'Directory containing contents of artifacts - relative to root directory of Git repository'
+    required: false
   draft-handling:
     description: 'Handling when artifact is in draft version. Allowed values: SKIP, ADD, ERROR (default "SKIP")'
     required: false
@@ -65,6 +68,7 @@ runs:
        FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
        FLASHPIPE_DEBUG: ${{ inputs.debug }}
        FLASHPIPE_DIR_GIT_REPO: ${{ inputs.dir-git-repo }}
+       FLASHPIPE_DIR_ARTIFACTS: ${{ inputs.dir-git-repo }}/${{ inputs.dir-artifacts-relative }}
        FLASHPIPE_DRAFT_HANDLING: ${{ inputs.draft-handling }}
        FLASHPIPE_GIT_COMMIT_MSG: ${{ inputs.git-commit-msg }}
        FLASHPIPE_GIT_COMMIT_USER: ${{ inputs.git-commit-user }}
