@@ -421,10 +421,22 @@ This action includes an implicit `git push`, so the workflow does not require an
     # Default: ${{ github.workspace }}
     dir-git-repo:
 
+    # Directory containing contents of artifacts (grouped by packages) - relative to root directory of Git repository
+    # Optional
+    dir-artifacts-relative: 
+
     # Handling when artifact is in draft version. Allowed values: SKIP, ADD, ERROR
     # Optional
     # Default: SKIP
     draft-handling:
+
+    # List of included package IDs
+    # Optional
+    ids-include:
+
+    # List of excluded package IDs
+    # Optional
+    ids-exclude:
 
     # Message used in commit
     # Optional
