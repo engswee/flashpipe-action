@@ -37,6 +37,12 @@ inputs:
   draft-handling:
     description: 'Handling when artifact is in draft version. Allowed values: SKIP, ADD, ERROR (default "SKIP")'
     required: false
+  ids-include:
+    description: 'List of included package IDs'
+    required: false
+  ids-exclude:
+    description: 'List of excluded package IDs'
+    required: false
   git-commit-msg:
     description: 'Message used in commit (default "Tenant snapshot of <current_timestamp>")'
     required: false
@@ -70,6 +76,8 @@ runs:
        FLASHPIPE_DIR_GIT_REPO: ${{ inputs.dir-git-repo }}
        FLASHPIPE_DIR_ARTIFACTS: ${{ inputs.dir-git-repo }}/${{ inputs.dir-artifacts-relative }}
        FLASHPIPE_DRAFT_HANDLING: ${{ inputs.draft-handling }}
+       FLASHPIPE_IDS_INCLUDE: ${{ inputs.ids-include }}
+       FLASHPIPE_IDS_EXCLUDE: ${{ inputs.ids-exclude }}
        FLASHPIPE_GIT_COMMIT_MSG: ${{ inputs.git-commit-msg }}
        FLASHPIPE_GIT_COMMIT_USER: ${{ inputs.git-commit-user }}
        FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
