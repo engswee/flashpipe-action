@@ -1,6 +1,6 @@
 # action.yml - https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
-name: 'FlashPipe Snapshot'
-description: 'Snapshot contents of editable packages to Git repository'
+name: 'FlashPipe Snapshot Restore'
+description: 'Restore snapshot contents of editable packages from Git repository to tenant'
 author: 'engswee'
 branding:
   icon: save
@@ -34,26 +34,11 @@ inputs:
   dir-artifacts-relative:
     description: 'Directory containing contents of artifacts - relative to root directory of Git repository'
     required: false
-  draft-handling:
-    description: 'Handling when artifact is in draft version. Allowed values: SKIP, ADD, ERROR (default "SKIP")'
-    required: false
   ids-include:
     description: 'List of included package IDs'
     required: false
   ids-exclude:
     description: 'List of excluded package IDs'
-    required: false
-  git-commit-msg:
-    description: 'Message used in commit (default "Tenant snapshot of <current_timestamp>")'
-    required: false
-  git-commit-user:
-    description: 'User used in commit (default "github-actions[bot]")'
-    required: false
-  git-commit-email:
-    description: 'Email used in commit (default "41898282+github-actions[bot]@users.noreply.github.com")'
-    required: false
-  sync-package-details:
-    description: 'Sync details of Integration Package (default "true")'
     required: false
   debug:
     description: 'Show debug logs'
@@ -62,7 +47,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: flashpipe snapshot
+    - run: flashpipe snapshot restore
       shell: bash
       env:
        FLASHPIPE_TMN_HOST: ${{ inputs.tmn-host }}
@@ -75,15 +60,6 @@ runs:
        FLASHPIPE_DEBUG: ${{ inputs.debug }}
        FLASHPIPE_DIR_GIT_REPO: ${{ inputs.dir-git-repo }}
        FLASHPIPE_DIR_ARTIFACTS: ${{ inputs.dir-git-repo }}/${{ inputs.dir-artifacts-relative }}
-       FLASHPIPE_DRAFT_HANDLING: ${{ inputs.draft-handling }}
        FLASHPIPE_IDS_INCLUDE: ${{ inputs.ids-include }}
        FLASHPIPE_IDS_EXCLUDE: ${{ inputs.ids-exclude }}
-       FLASHPIPE_GIT_COMMIT_MSG: ${{ inputs.git-commit-msg }}
-       FLASHPIPE_GIT_COMMIT_USER: ${{ inputs.git-commit-user }}
-       FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
-       FLASHPIPE_SYNC_PACKAGE_DETAILS: ${{ inputs.sync-package-details }}
        FLASHPIPE_ACTION: true
-    - run: git push
-      shell: bash
-      env:
-       HOME: /root

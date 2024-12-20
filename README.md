@@ -15,7 +15,7 @@ It provides the following actions which execute their corresponding FlashPipe CL
 |[sync](#sync)|engswee/flashpipe-action/sync@v1|
 |[sync apim](#sync-apim)|engswee/flashpipe-action/sync/apim@v1|
 |[snapshot](#snapshot)|engswee/flashpipe-action/snapshot@v1|
-
+|[snapshot restore](#snapshot-restore)|engswee/flashpipe-action/snapshot/restore@v1|
 
 
 ## Usage
@@ -455,8 +455,64 @@ This action includes an implicit `git push`, so the workflow does not require an
 
     # Sync details of Integration Package
     # Optional
-    # Default: false
+    # Default: true
     sync-package-details:
+
+    # Show debug logs
+    # Optional
+    # Default: false
+    debug:
+```
+
+### snapshot restore
+```yaml
+- uses: engswee/flashpipe-action/snapshot/restore@v1
+  with:
+    # Host for tenant management node of Cloud Integration
+    # Required
+    tmn-host:
+
+    # User ID for Basic Auth
+    # Required (for Basic Auth)
+    tmn-userid:
+
+    # Password for Basic Auth
+    # Required (for Basic Auth)
+    tmn-password:
+
+    # Host for OAuth token server
+    # Required (for OAuth)
+    oauth-host:
+
+    # Client ID for using OAuth
+    # Required (for OAuth)
+    oauth-clientid:
+
+    # Client Secret for using OAuth
+    # Required (for OAuth)
+    oauth-clientsecret:
+
+    # Path for OAuth token server
+    # Optional
+    # Default: /oauth/token
+    oauth-path:
+
+    # Root directory of Git repository
+    # Optional
+    # Default: ${{ github.workspace }}
+    dir-git-repo:
+
+    # Directory containing contents of artifacts (grouped by packages) - relative to root directory of Git repository
+    # Optional
+    dir-artifacts-relative:
+
+    # List of included package IDs
+    # Optional
+    ids-include:
+
+    # List of excluded package IDs
+    # Optional
+    ids-exclude:
 
     # Show debug logs
     # Optional
