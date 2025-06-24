@@ -1,0 +1,78 @@
+# action.yml - https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+name: 'FlashPipe Sync API Product'
+description: 'Sync API Management products between tenant and Git'
+author: 'engswee'
+branding:
+  icon: refresh-cw
+  color: blue
+inputs:
+  tmn-host:
+    description: 'Host for API Management tenant'
+    required: true
+  oauth-host:
+    description: 'Host for OAuth token server'
+    required: false
+  oauth-clientid:
+    description: 'Client ID for using OAuth'
+    required: false
+  oauth-clientsecret:
+    description: 'Client Secret for using OAuth'
+    required: false
+  oauth-path:
+    description: 'Path for OAuth token server'
+    required: false
+  dir-git-repo:
+    description: 'Root directory of Git repository'
+    required: false
+    default: ${{ github.workspace }}
+  dir-artifacts-relative:
+    description: 'Directory containing contents of artifacts - relative to root directory of Git repository'
+    required: false
+  target:
+    description: 'Target of sync. Allowed values: git, tenant (default "git")'
+    required: false
+  ids-include:
+    description: 'List of included artifact IDs'
+    required: false
+  ids-exclude:
+    description: 'List of excluded artifact IDs'
+    required: false
+  git-commit-msg:
+    description: 'Message used in commit (default "Sync repo from tenant")'
+    required: false
+  git-commit-user:
+    description: 'User used in commit (default "github-actions[bot]")'
+    required: false
+  git-commit-email:
+    description: 'Email used in commit (default "41898282+github-actions[bot]@users.noreply.github.com")'
+    required: false
+  debug:
+    description: 'Show debug logs'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: flashpipe sync apiproduct
+      shell: bash
+      env:
+       FLASHPIPE_TMN_HOST: ${{ inputs.tmn-host }}
+       FLASHPIPE_OAUTH_HOST: ${{ inputs.oauth-host }}
+       FLASHPIPE_OAUTH_CLIENTID: ${{ inputs.oauth-clientid }}
+       FLASHPIPE_OAUTH_CLIENTSECRET: ${{ inputs.oauth-clientsecret }}
+       FLASHPIPE_OAUTH_PATH: ${{ inputs.oauth-path }}
+       FLASHPIPE_DEBUG: ${{ inputs.debug }}
+       FLASHPIPE_DIR_GIT_REPO: ${{ inputs.dir-git-repo }}
+       FLASHPIPE_DIR_ARTIFACTS: ${{ inputs.dir-git-repo }}/${{ inputs.dir-artifacts-relative }}
+       FLASHPIPE_TARGET: ${{ inputs.target }}
+       FLASHPIPE_IDS_INCLUDE: ${{ inputs.ids-include }}
+       FLASHPIPE_IDS_EXCLUDE: ${{ inputs.ids-exclude }}
+       FLASHPIPE_GIT_COMMIT_MSG: ${{ inputs.git-commit-msg }}
+       FLASHPIPE_GIT_COMMIT_USER: ${{ inputs.git-commit-user }}
+       FLASHPIPE_GIT_COMMIT_EMAIL: ${{ inputs.git-commit-email }}
+       FLASHPIPE_ACTION: true
+    - run: git push
+      if: ${{ inputs.target == 'git' || inputs.target == 'local' || inputs.target == '' }} # Run only if sync from tenant to Git
+      shell: bash
+      env:
+       HOME: /root
