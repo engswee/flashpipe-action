@@ -43,7 +43,7 @@ inputs:
     description: 'Directory containing contents of designtime artifact - relative to root of Git repository'
     required: true
   artifact-type:
-    description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping (default "Integration")'
+    description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping, DataType, MessageType, FaultMessageType (default "Integration")'
     required: false
   file-manifest:
     description: 'Use a different MANIFEST.MF file instead of default META-INF/MANIFEST.MF'

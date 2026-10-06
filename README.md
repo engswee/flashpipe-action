@@ -85,7 +85,7 @@ jobs:
     # Required
     dir-artifact-relative: 
 
-    # Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping
+    # Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping, DataType, MessageType, FaultMessageType
     # Optional
     # Default: Integration
     artifact-type:
@@ -188,7 +188,7 @@ jobs:
     # Required
     artifact-ids:
 
-    # Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping
+    # Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping, DataType, MessageType, FaultMessageType
     # Optional
     # Default: Integration
     artifact-type:

@@ -31,7 +31,7 @@ inputs:
     description: 'Comma separated list of artifact IDs'
     required: true
   artifact-type:
-    description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping (default "Integration")'
+    description: 'Artifact type. Allowed values: Integration, MessageMapping, ScriptCollection, ValueMapping, DataType, MessageType, FaultMessageType (default "Integration")'
     required: false
   compare-versions:
     description: 'Perform version comparison of design time against runtime before deployment (default true)'
